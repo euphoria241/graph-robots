@@ -116,16 +116,14 @@ class Robot(object):
         min_time_zero, point_meet_zero = math.inf, math.inf
         for i in range(len(matrix)):
             if weight[i] != math.inf and weight_rb1[i] != math.inf:
-                if abs(weight[i] - weight_rb1[i]) < min_time and weight[i] != 0 and weight_rb1[i] != 0 and weight[i] != math.inf and weight_rb1[i] != math.inf:
+                if abs(weight[i] - weight_rb1[i]) < min_time and weight[i] != 0 and weight_rb1[i] != 0:
                     min_time = abs(weight[i] - weight_rb1[i])
                     point_meet = i
                 elif weight[i] == 0 and weight_rb1[i] == 0:
                     min_time = 0
                     point_meet = i
-                elif abs(weight[i] - weight_rb1[i]) < min_time and weight[i] != math.inf and weight_rb1[i] != math.inf:
-                    # TODO: В случае если единственный путь это петля
-                    # min_time = abs(weight[i] - weight_rb1[i])
-                    min_time_zero = i
+                elif abs(weight[i] - weight_rb1[i]) < min_time:
+                    point_meet_zero = i
         if min_time == 0:
             print("min_time == 0")
             return True, point_meet, point_meet, weight[point_meet]
@@ -149,7 +147,7 @@ class Robot(object):
                         robot1.point = last
                         robot1.vertex = robot1.vertex - (weight[point_meet] - weight_rb1[k])*robot1.speed
                         return False, point_meet, last, weight[point_meet]
-            else:
+            elif min(weight[point_meet], weight_rb1[point_meet]) == weight_rb1[point_meet]:
                 robot1.point = point_meet
                 robot1.vertex = 0
                 last, k = point_meet, road[point_meet]
@@ -159,21 +157,26 @@ class Robot(object):
                     elif weight[k] == weight_rb1[point_meet]:
                         self.point = k
                         self.vertex = 0
-                        return False, point_meet, k, weight_rb1[point_meet]
+                        return False, k, point_meet, weight_rb1[point_meet]
                     elif k != -1:
                         self.point = last
                         self.vertex = matrix[k][last] - (weight_rb1[point_meet] - weight[k])*self.speed
-                        return False, point_meet, last, weight_rb1[point_meet]
+                        return False, last, point_meet, weight_rb1[point_meet]
                     else:
                         self.point = last
                         self.vertex = self.vertex - (weight_rb1[point_meet] - weight[k])*self.speed
-                        return False, point_meet, last, weight_rb1[point_meet]
+                        return False, last, point_meet, weight_rb1[point_meet]
         else:
-            if (weight[point_meet_zero] == 0 or weight_rb1[point_meet_zero]) and self.speed == robot1.speed:
+            if self.speed == robot1.speed:
                 return False, math.inf, math.inf, point_meet_zero
-            elif weight[point_meet_zero] == 0:
-                return True, road_rb1[point_meet_zero], road_rb1[point_meet_zero], 2 * weight[road_rb1[point_meet_zero]]
-            elif weight_rb1[point_meet_zero] == 0:
-                return True, road[point_meet_zero], road[point_meet_zero], 2 * weight_rb1[road[point_meet_zero]]
+            elif max(self.speed, robot1.speed) == self.speed and weight[point_meet_zero] == 0:
+                return True, point_meet_zero, point_meet_zero, matrix[point_meet_zero][road_rb1[point_meet_zero]]
+            elif max(self.speed, robot1.speed) == self.speed and weight[point_meet_zero] != 0:
+                return True, road[point_meet_zero], road[point_meet_zero], matrix[road[point_meet]][point_meet_zero]
+            elif max(self.speed, robot1.speed) == robot1.speed and weight_rb1[point_meet_zero] == 0:
+                return True, point_meet_zero, point_meet_zero, matrix[point_meet_zero][road[point_meet_zero]]
+            elif max(self.speed, robot1.speed) == robot1.speed and weight_rb1[point_meet_zero] != 0:
+                return True, road_rb1[point_meet_zero], road_rb1[point_meet_zero], matrix[road_rb1[point_meet]][point_meet_zero]
+
         print("Что-то пошло не так")
         return False, -2, -2, -2
