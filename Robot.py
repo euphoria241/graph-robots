@@ -178,5 +178,4 @@ class Robot(object):
             elif max(self.speed, robot1.speed) == robot1.speed and weight_rb1[point_meet_zero] != 0:
                 return True, road_rb1[point_meet_zero], road_rb1[point_meet_zero], matrix[road_rb1[point_meet]][point_meet_zero]
 
-        print("Что-то пошло не так")
-        return False, -2, -2, -2
+        return False, math.inf, math.inf, 0

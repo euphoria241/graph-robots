@@ -44,18 +44,16 @@ matr = [
 #     {e: 1, g: 8},  # f
 #     {f: 8}  # g
 # ]
-#
+
 matr = [
     {b: 3},  #a
     {a: 3}   #b
 ]
 
-
 matr = [
     {b: 1},        #a
     {a: 1, c: 1},  #b
     {b: 1}         #c
-
 ]
 
 n = len(matr)
