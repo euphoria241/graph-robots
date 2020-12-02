@@ -45,6 +45,16 @@ matr = [
 #     {f: 8}  # g
 # ]
 
+matr = [
+    {b: 3},  #a
+    {a: 3}   #b
+]
+
+matr = [
+    {b: 1},        #a
+    {a: 1, c: 1},  #b
+    {b: 1}         #c
+]
 
 n = len(matr)
 for i in range(len(matr)):
@@ -74,7 +84,11 @@ if len(robots) == 2:
     if robots[0].can_meet_two_robot(robots[1], matr) == True:
         fl = False
         sum = 0
+        it = 0
         while not fl:
+            if it > 100:
+                print("Мы попали в петлю")
+                break
             weight, road = robots[0].Dijkstra(matr)
             weight_rb1, road_rb1 = robots[1].Dijkstra(matr)
             weight = [x / robots[0].speed for x in weight]
@@ -88,11 +102,12 @@ if len(robots) == 2:
                 print("Добавили ещё тиков времени:", w)
             elif not fl and p != math.inf:
                 sum += w
-                print("Первый робот в точке: ", p1, " ; Второй в точке: ", p)
+                print("Первый робот в точке: ", p, " ; Второй в точке: ", p1)
                 print("Добавили ещё тиков времени:", w)
             else:
                 print("Мы попали в петлю")
                 break
+            it += 1
         if not fl:
             print("точно петля")
         else:
