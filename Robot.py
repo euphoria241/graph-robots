@@ -5,6 +5,7 @@
 # (C) 2020 Группа 4, Москва, Россия
 #
 #
+
 import math
 import queue
 
