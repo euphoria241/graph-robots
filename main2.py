@@ -7,7 +7,7 @@ import re
 import hashlib
 
 a, b, c, d, e, f, g, h, t = range(9)
-matr = [
+matr1 = [
     {b: 1, c: 1, d: 1, e: 1, f: 1},  # a
     {c: 1, e: 1},  # b
     {d: 1},  # c
@@ -19,7 +19,7 @@ matr = [
     {} # t
 ]
 """
-matr = [
+matr2 = [
     {b: 1, c: 1},  # a
     {a: 1, c: 1},  # b
     {a: 1, b: 1, d: 1},  # c
@@ -29,7 +29,7 @@ matr = [
     {f: 1}  # g
 ]"""
 
-# matr = [
+# matr3 = [
 #     {b: 3, c: 5},  # a
 #     {a: 3, c: 8},  # b
 #     {a: 5, b: 8, d: 1},  # c
@@ -39,7 +39,7 @@ matr = [
 #     {f: 7}  # g
 # ]
 
-# matr = [
+# matr4 = [
 #     {b: 3, c: 5},  # a
 #     {a: 3, c: 8},  # b
 #     {a: 5, b: 8, d: 1},  # c
@@ -50,45 +50,20 @@ matr = [
 # ]
 #
 """
-matr = [
+matr5 = [
     {b: 3},  #a
     {a: 3}   #b
 ]
 
 
-matr = [
+matr6 = [
     {b: 1},        #a
     {a: 1, c: 1},  #b
     {b: 1}         #c
 
 ]
 """
-def Dij(self, matrix):
-    n = len(matrix)
-    queue_vertex = queue.Queue()
-    visited_vertex = [True] * n
-    weight_road = [math.inf] * n
-    weight_road[self.point] = self.vertex
-    road = [math.inf] * n
-    road[self.point] = -1
-    queue_vertex.put(self.point)
-    while not queue_vertex.empty():
-        vertex = queue_vertex.get()
-        if visited_vertex[vertex]:
-            for i in matrix[vertex].keys():
-                if matrix[vertex][i] + weight_road[vertex] < weight_road[i]:
-                    weight_road[i] = matrix[vertex][i] + weight_road[vertex]
-                    road[i] = vertex
-                queue_vertex.put(i)
-            visited_vertex[vertex] = False
-    return weight_road, road
-def can_two(robot1, matrix):
-    """
-    Проверка на существование пути между роботами
-    :param robot1: Второй робот для проверки
-    :param matrix: Граф представленный списком смежностей
-    :return: True если существует, иначе False если нету пути
-    """
+"""
     print("o2")
     time.sleep(10)
     weight, road = robot1.Dij(matrix)
@@ -98,18 +73,43 @@ def can_two(robot1, matrix):
         return True
     else:
         return False
-
+"""
 
 layout = [
-    [sg.Text('Введите количество роботов (2 или 3): '), sg.InputText()
+    [sg.Text("Введите номер матрицы "), sg.InputText()
      ],
-    [sg.Text('Введите начальную позицию 1-го робота (от 0 до 6) '), sg.InputText()
+
+    [sg.Submit(), sg.Cancel()]
+]
+window = sg.Window('Robot', layout)
+while True:                             # The Event Loop
+    event, values = window.read()
+    # print(event, values) #debug
+    if event in (None, 'Exit', 'Cancel'):
+        break
+    if event=='Submit':
+        if int(values[0])==1:
+            matr=matr1
+            break
+window.close()
+
+matr=matr1
+n = len(matr)
+for i in range(len(matr)):
+    for j in matr[i].keys():
+        matr[j].update({i: matr[i].get(j)})
+
+layout = [
+    [sg.Text("Введите  количество  роботов  (2  или  3): "), sg.InputText()
      ],
-    [sg.Text('Введите начальную позицию 2-го робота (от 0 до 6) '), sg.InputText()
+
+    [sg.Text('Введите  начальную  позицию  1-го  робота  от  0  до'),sg.Text(str(n-1)),  sg.InputText()
      ],
-    [sg.Text('Введите скорость 1-го робота (1 или 2):'), sg.InputText()
+    [sg.Text('Введите  начальную  позицию  2-го робота  (от  0  до'),sg.Text(str(n-1)), sg.InputText()
      ],
-    [sg.Text('Введите скорость 2-го робота (1 или 2):'), sg.InputText()
+    [sg.Text('Введите  скорость 1-го  робота  (1  или  2):'), sg.InputText()
+     ],
+    [sg.Text('Введите  скорость  2-го  робота  (1  или  2):'), sg.InputText()
      ],
     [sg.Output(size=(88, 20))],
     [sg.Submit(), sg.Cancel()]
@@ -123,10 +123,7 @@ while True:                             # The Event Loop
     if event=='Submit':
 
 
-        n = len(matr)
-        for i in range(len(matr)):
-            for j in matr[i].keys():
-                matr[j].update({i: matr[i].get(j)})
+
 
 #print("Введите количество роботов (2 или 3): ")
 #m = int(input())
@@ -137,26 +134,20 @@ while True:                             # The Event Loop
         if not (m == 2 or m == 3):
             print("Что ты ввел")
         robots = []
-      #  time.sleep(10)
-     #   for i in range(1, m + 1):
         point=int(values[1])
-     #       if point >= n:
-      #          print("Начальная вершина не может быть больше количества вершин")
-  #  print("Введите скорость ", i, "-го робота (1 или 2): ")
+        if point >= n:
+           print("Начальная вершина не может быть больше количества вершин")
         speed=int(values[3])
-  #  speed = int(input())
-    #        if not (speed == 1 or speed == 2):
-     #           print("Скорость не может быть другой кроме 1 или 2")
+        if not (speed == 1 or speed == 2):
+            print("Скорость не может быть другой кроме 1 или 2")
         robot = Robot.Robot(1, point, speed, 0)
         robots.append(robot)
         point = int(values[2])
-        #       if point >= n:
-        #          print("Начальная вершина не может быть больше количества вершин")
-        #  print("Введите скорость ", i, "-го робота (1 или 2): ")
+        if point >= n:
+            print("Начальная вершина не может быть больше количества вершин")
         speed = int(values[4])
-        #  speed = int(input())
-        #        if not (speed == 1 or speed == 2):
-        #           print("Скорость не может быть другой кроме 1 или 2")
+        if not (speed == 1 or speed == 2):
+            print("Скорость не может быть другой кроме 1 или 2")
         robot = Robot.Robot(2, point, speed, 0)
         robots.append(robot)
 
@@ -170,11 +161,8 @@ while True:                             # The Event Loop
             visited_vertex = [True] * n
             weight_road = [math.inf] * n
 
-            #j=robots[1].point
-           # print[j]
             weight_road[robots[1].point] = robots[1].vertex
             road = [math.inf] * n
-            print("o3")
             road[robots[1].point] = -1
             queue_vertex.put(robots[1].point)
 
@@ -188,8 +176,7 @@ while True:                             # The Event Loop
                         queue_vertex.put(i)
                     visited_vertex[vertex] = False
 
-
-            print("o2")
+            weight=weight_road
             try:
 
                 if weight[robots[0].point]!= math.inf:
@@ -203,8 +190,6 @@ while True:                             # The Event Loop
 
 
             if z == True:
-                print("ol1")
-                time.sleep(10)
                 fl = False
                 sum = 0
                 while not fl:

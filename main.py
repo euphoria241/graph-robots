@@ -58,26 +58,34 @@ while True:                             # The Event Loop
 #print("Введите количество роботов (2 или 3): ")
 #m = int(input())
 
-
-        m=values[0]
-        print(m)
+        m = int(values[0])
+        print(values)
         if not (m == 2 or m == 3):
             print("Что ты ввел")
         robots = []
-      #  time.sleep(10)
-        for i in range(1, m + 1):
-            point=values[1]
-     #       if point >= n:
-      #          print("Начальная вершина не может быть больше количества вершин")
-  #  print("Введите скорость ", i, "-го робота (1 или 2): ")
-            speed=values[2]
-  #  speed = int(input())
-    #        if not (speed == 1 or speed == 2):
-     #           print("Скорость не может быть другой кроме 1 или 2")
-            robot = Robot.Robot(i, point, speed, 0)
-            robots.append(robot)
+        #  time.sleep(10)
+        #   for i in range(1, m + 1):
+        point = int(values[1])
+        #       if point >= n:
+        #          print("Начальная вершина не может быть больше количества вершин")
+        #  print("Введите скорость ", i, "-го робота (1 или 2): ")
+        speed = int(values[3])
+        #  speed = int(input())
+        #        if not (speed == 1 or speed == 2):
+        #           print("Скорость не может быть другой кроме 1 или 2")
+        robot = Robot.Robot(1, point, speed, 0)
+        robots.append(robot)
+        point = int(values[2])
+        #       if point >= n:
+        #          print("Начальная вершина не может быть больше количества вершин")
+        #  print("Введите скорость ", i, "-го робота (1 или 2): ")
+        speed = int(values[4])
+        #  speed = int(input())
+        #        if not (speed == 1 or speed == 2):
+        #           print("Скорость не может быть другой кроме 1 или 2")
+        robot = Robot.Robot(2, point, speed, 0)
+        robots.append(robot)
         f = True
-        print("222222222222222222222222222222222222222222222222222222222222222222")
         if len(robots) == 2:
             if robots[0].can_meet_two_robot(robots[1], matr) == True:
                 fl = False
