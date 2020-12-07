@@ -119,7 +119,6 @@ while True:                             # The Event Loop
 #m = int(input())
 
         m = int(values[0])
-        print(values)
         if not (m == 2 or m == 3):
             print("Что ты ввел")
         robots = []
