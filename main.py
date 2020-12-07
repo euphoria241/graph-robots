@@ -7,7 +7,7 @@ import hashlib
 
 a, b, c, d, e, f, g, h, t = range(9)
 
-matr = [
+matr1 = [
     {b: 1, c: 1, d: 1, e: 1, f: 1},  # a
     {c: 1, e: 1},  # b
     {d: 1},  # c
@@ -18,7 +18,8 @@ matr = [
     {f: 1, g: 1},  # h
     {} # t
 ]
-matr = [
+"""
+matr2 = [
     {b: 1, c: 1},  # a
     {a: 1, c: 1},  # b
     {a: 1, b: 1, d: 1},  # c
@@ -26,17 +27,76 @@ matr = [
     {d: 1, f: 1},  # e
     {e: 1, g: 1},  # f
     {f: 1}  # g
+]"""
+
+# matr3 = [
+#     {b: 3, c: 5},  # a
+#     {a: 3, c: 8},  # b
+#     {a: 5, b: 8, d: 1},  # c
+#     {c: 1, e: 4},  # d
+#     {d: 4, f: 1},  # e
+#     {e: 1, g: 7},  # f
+#     {f: 7}  # g
+# ]
+
+# matr4 = [
+#     {b: 3, c: 5},  # a
+#     {a: 3, c: 8},  # b
+#     {a: 5, b: 8, d: 1},  # c
+#     {c: 1, e: 4},  # d
+#     {d: 4, f: 1},  # e
+#     {e: 1, g: 8},  # f
+#     {f: 8}  # g
+# ]
+#
+"""
+matr5 = [
+    {b: 3},  #a
+    {a: 3}   #b
 ]
+
+
+matr6 = [
+    {b: 1},        #a
+    {a: 1, c: 1},  #b
+    {b: 1}         #c
+
+]
+"""
 layout = [
-    [sg.Text('Введите количество роботов (2 или 3): '), sg.InputText()
+    [sg.Text("Введите номер матрицы "), sg.InputText()
      ],
-    [sg.Text('Введите начальную позицию 1-го робота (от 0 до 6) '), sg.InputText()
+
+    [sg.Submit(), sg.Cancel()]
+]
+window = sg.Window('Robot', layout)
+while True:                             # The Event Loop
+    event, values = window.read()
+    # print(event, values) #debug
+    if event in (None, 'Exit', 'Cancel'):
+        break
+    if event=='Submit':
+        if int(values[0])==1:
+            matr=matr1
+            break
+window.close()
+
+n = len(matr)
+for i in range(len(matr)):
+    for j in matr[i].keys():
+        matr[j].update({i: matr[i].get(j)})
+
+layout = [
+    [sg.Text("Введите  количество  роботов  (2  или  3): "), sg.InputText()
      ],
-    [sg.Text('Введите начальную позицию 2-го робота (от 0 до 6) '), sg.InputText()
+
+    [sg.Text('Введите  начальную  позицию  1-го  робота  от  0  до'),sg.Text(str(n-1)),  sg.InputText()
      ],
-    [sg.Text('Введите скорость 1-го робота (1 или 2):'), sg.InputText()
+    [sg.Text('Введите  начальную  позицию  2-го робота  (от  0  до'),sg.Text(str(n-1)), sg.InputText()
      ],
-    [sg.Text('Введите скорость 2-го робота (1 или 2):'), sg.InputText()
+    [sg.Text('Введите  скорость 1-го  робота  (1  или  2):'), sg.InputText()
+     ],
+    [sg.Text('Введите  скорость  2-го  робота  (1  или  2):'), sg.InputText()
      ],
     [sg.Output(size=(88, 20))],
     [sg.Submit(), sg.Cancel()]
@@ -63,26 +123,20 @@ while True:                             # The Event Loop
         if not (m == 2 or m == 3):
             print("Что ты ввел")
         robots = []
-        #  time.sleep(10)
-        #   for i in range(1, m + 1):
         point = int(values[1])
-        #       if point >= n:
-        #          print("Начальная вершина не может быть больше количества вершин")
-        #  print("Введите скорость ", i, "-го робота (1 или 2): ")
+        if point >= n:
+            print("Начальная вершина не может быть больше количества вершин")
         speed = int(values[3])
-        #  speed = int(input())
-        #        if not (speed == 1 or speed == 2):
-        #           print("Скорость не может быть другой кроме 1 или 2")
+        if not (speed == 1 or speed == 2):
+            print("Скорость не может быть другой кроме 1 или 2")
         robot = Robot.Robot(1, point, speed, 0)
         robots.append(robot)
         point = int(values[2])
-        #       if point >= n:
-        #          print("Начальная вершина не может быть больше количества вершин")
-        #  print("Введите скорость ", i, "-го робота (1 или 2): ")
+        if point >= n:
+            print("Начальная вершина не может быть больше количества вершин")
         speed = int(values[4])
-        #  speed = int(input())
-        #        if not (speed == 1 or speed == 2):
-        #           print("Скорость не может быть другой кроме 1 или 2")
+        if not (speed == 1 or speed == 2):
+            print("Скорость не может быть другой кроме 1 или 2")
         robot = Robot.Robot(2, point, speed, 0)
         robots.append(robot)
         f = True

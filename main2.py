@@ -93,7 +93,7 @@ while True:                             # The Event Loop
             break
 window.close()
 
-matr=matr1
+#matr=matr1
 n = len(matr)
 for i in range(len(matr)):
     for j in matr[i].keys():
