@@ -18,7 +18,6 @@ matr1 = [
     {f: 1, g: 1},  # h
     {} # t
 ]
-"""
 matr2 = [
     {b: 1, c: 1},  # a
     {a: 1, c: 1},  # b
@@ -27,18 +26,17 @@ matr2 = [
     {d: 1, f: 1},  # e
     {e: 1, g: 1},  # f
     {f: 1}  # g
-]"""
+]
 
-# matr3 = [
-#     {b: 3, c: 5},  # a
-#     {a: 3, c: 8},  # b
-#     {a: 5, b: 8, d: 1},  # c
-#     {c: 1, e: 4},  # d
-#     {d: 4, f: 1},  # e
-#     {e: 1, g: 7},  # f
-#     {f: 7}  # g
-# ]
+matr3 = [
+    {b: 3, c: 5},  # a
+    {a: 3, c: 8},  # b
+    {a: 5, b: 8, d: 1},  # c
+    {c: 1, e: 4},  # d
+    {d: 4, f: 1},  # e
 
+    {f: 7}  # g]
+]
 # matr4 = [
 #     {b: 3, c: 5},  # a
 #     {a: 3, c: 8},  # b
@@ -78,6 +76,12 @@ while True:                             # The Event Loop
     if event=='Submit':
         if int(values[0])==1:
             matr=matr1
+            break
+        if int(values[0])==2:
+            matr=matr2
+            break
+        if int(values[0])==3:
+            matr=matr3
             break
 window.close()
 
