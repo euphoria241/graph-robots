@@ -170,6 +170,17 @@ while True:                             # The Event Loop
                     print("точно петля")
                 else:
                     print("В итоге прошло столько то времени", sum)
+                    if int(values[0])==2 and int(values[1])==1 and int(values[2])==2 and int(values[3])==1 and int(values[4])==2:
+                        if p==4 and w==1.0 and sum==1.0:
+                            print("Тест пройден")
+                        else:
+                            print("Тест не пройден")
+                    if int(values[0])==2 and int(values[1])==1 and int(values[2])==2 and int(values[3])==2 and int(values[4])==2:
+                        if p==0 and w==0.5 and sum==0.5:
+                            print("Тест пройден")
+                        else:
+                            print("Тест не пройден")
+
             else:
              print("Кидаем сообщение нельзя встретиться")
         elif len(robots) == 3:
